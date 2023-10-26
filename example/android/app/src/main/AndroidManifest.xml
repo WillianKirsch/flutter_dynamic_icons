@@ -35,6 +35,7 @@
             android:icon="@mipmap/ic_launcher_1"
             android:name=".icon_1"
             android:enabled="false"
+            android:exported="true"
             android:targetActivity=".MainActivity">
 
             <meta-data
@@ -53,6 +54,7 @@
             android:icon="@mipmap/ic_launcher_2"
             android:name=".icon_2"
             android:enabled="false"
+            android:exported="true"
             android:targetActivity=".MainActivity">
 
             <meta-data
