@@ -1,4 +1,3 @@
-
 package dev.wkirsch.flutter_dynamic_icons
 
 import android.app.Activity
@@ -50,9 +49,14 @@ class FlutterDynamicIconsPlugin: ContextAwarePlugin() {
   }
 
 
-  private fun setIcon(targetIcon: String, activitiesArray: List<String>) {
+    private fun setIcon(targetIcon: String, activitiesArray: List<String>) {
         val packageManager: PackageManager = applicationContext!!.packageManager
         val packageName = applicationContext!!.packageName
+        val parts = packageName.split(".")
+        val firstPart = parts[0]
+        val secondPart = parts[1]
+        val thirdPart = parts[2]
+        val libraryName = "$firstPart.$secondPart.$thirdPart"
         val className = StringBuilder()
         className.append(packageName)
         className.append(".")
@@ -65,8 +69,8 @@ class FlutterDynamicIconsPlugin: ContextAwarePlugin() {
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED
             }
             packageManager.setComponentEnabledSetting(
-                    ComponentName(packageName!!, "$packageName.$value"),
-                    action, PackageManager.DONT_KILL_APP
+                ComponentName(packageName!!, "$libraryName.$value"),
+                action, PackageManager.DONT_KILL_APP
             )
         }
     }
@@ -77,7 +81,7 @@ abstract class ContextAwarePlugin : FlutterPlugin, ActivityAware, MethodCallHand
     ///
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
-    private lateinit var channel : MethodChannel
+    private lateinit var channel: MethodChannel
 
     abstract val pluginName: String
 
@@ -115,3 +119,4 @@ abstract class ContextAwarePlugin : FlutterPlugin, ActivityAware, MethodCallHand
         channel.setMethodCallHandler(null)
     }
 }
+
